@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emanuel | Mural de Lembranças</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --agro-green: #2d5a27;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fdfaf6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, .elegant {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .auth-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f4ece1;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .memory-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 5px solid var(--agro-green);
+        }
+        .memory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .category-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-weight: 700;
+        }
+
+        .hidden-content { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE LOGIN / ACESSO -->
+    <div id="auth-screen" class="auth-overlay px-4">
+        <div class="glass-card max-w-md w-full p-10 text-center border-t-8 border-[#2d5a27]">
+            <div class="mb-8">
+                <div class="w-20 h-20 bg-green-100 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-hat-cowboy text-[#2d5a27] text-4xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-slate-800">Portal do Emanuel</h1>
+                <p class="text-slate-500 mt-2 text-sm">Entre para deixar sua lembrança com o Manel</p>
+            </div>
+
+            <div id="auth-options" class="space-y-4">
+                <button onclick="login('Anônimo')" class="w-full bg-white border-2 border-slate-200 text-slate-700 font-bold py-4 rounded-2xl hover:bg-slate-50 transition flex items-center justify-center gap-3">
+                    <i class="fas fa-user-secret text-slate-400"></i> Entrar como Anônimo
+                </button>
+                <div class="flex items-center gap-3 my-4">
+                    <hr class="flex-grow border-slate-200">
+                    <span class="text-xs text-slate-400 uppercase font-bold">ou</span>
+                    <hr class="flex-grow border-slate-200">
+                </div>
+                <button onclick="showRegister()" class="w-full bg-[#2d5a27] text-white font-bold py-4 rounded-2xl hover:bg-green-800 transition shadow-lg">
+                    Fazer Cadastro
+                </button>
+            </div>
+
+            <form id="register-form" class="hidden-content space-y-4 text-left">
+                <input type="text" id="user-name" placeholder="Seu Nome Completo" required class="w-full p-4 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-[#2d5a27]">
+                <input type="email" id="user-email" placeholder="Seu E-mail" class="w-full p-4 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-[#2d5a27]">
+                <button type="submit" class="w-full bg-[#2d5a27] text-white font-bold py-4 rounded-2xl">Confirmar Acesso</button>
+                <button type="button" onclick="hideRegister()" class="w-full text-slate-400 text-sm mt-2">Voltar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SITE PRINCIPAL -->
+    <div id="main-site" class="hidden-content">
+        <!-- Hero -->
+        <header class="hero-section min-h-[90vh] flex items-center justify-center text-white text-center px-4">
+            <div class="max-w-4xl">
+                <span class="uppercase tracking-widest text-sm mb-4 block font-bold text-green-400">Arinos • MG • Barra da Vaca</span>
+                <h1 class="text-6xl md:text-8xl font-bold mb-6">Emanuel</h1>
+                <p class="text-xl md:text-2xl font-light italic opacity-90">"Um sujeito rústico do agro com a precisão da informática."</p>
+                <div class="mt-10 flex flex-wrap justify-center gap-4">
+                    <a href="#mural" class="bg-white text-slate-900 px-8 py-4 rounded-full font-bold hover:bg-green-50 transition shadow-xl">Deixar Lembrança</a>
+                    <a href="https://wa.me/5538999494225" target="_blank" class="bg-[#25D366] text-white px-8 py-4 rounded-full font-bold flex items-center gap-3">
+                        <i class="fab fa-whatsapp text-xl"></i> Falar com Manel
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- História -->
+        <section id="historia" class="py-24 px-6 max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1000" class="rounded-[3rem] shadow-2xl" alt="Paisagem Rural">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-3xl shadow-xl border border-slate-50">
+                        <i class="fas fa-graduation-cap text-[#2d5a27] text-2xl mb-2"></i>
+                        <p class="font-bold text-slate-800">IFNMG Arinos</p>
+                        <p class="text-xs text-slate-500">Tecnologia & Terra</p>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-4xl font-bold mb-6 text-[#2d5a27]">Trajetória de Honra</h2>
+                    <div class="space-y-4 text-slate-600 leading-relaxed text-lg">
+                        <p>Vindo das raízes da <strong>Barra da Vaca</strong>, Emanuel é a união perfeita entre a tradição bruta do campo e a sofisticação tecnológica atual. É um verdadeiro exemplo de conduta e trabalho duro.</p>
+                        <p>Entre as linhas de código do <strong>IFNMG Campus Arinos</strong> e as lidas do agronegócio, ele se destaca pela sua elegância e rusticidade. No futebol, foi o craque da <strong>Escola Objetivo</strong> em Arinos, mostrando que a estratégia vai muito além das telas.</p>
+                        <p>Sujeito apaixonado, rústico, elegante e cuida-bem. Um amante dos animais que não esquece de onde veio enquanto constrói o seu futuro na informática.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mural de Lembranças -->
+        <section id="mural" class="py-24 px-6 bg-[#f4f7f4]">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <div class="inline-block bg-green-100 text-[#2d5a27] px-4 py-1 rounded-full text-xs font-bold mb-4 uppercase tracking-widest">Memórias Compartilhadas</div>
+                    <h2 class="text-4xl font-bold text-slate-800">Mural de Lembranças com Manel</h2>
+                    <p class="text-slate-500 mt-4">Qual a sua melhor recordação com este sujeito do agro?</p>
+                </div>
+
+                <!-- Formulário de Lembrança -->
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm mb-12 border border-slate-200/50">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 mb-2 uppercase">Categoria da Lembrança</label>
+                            <select id="memory-category" class="w-full p-4 rounded-xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-[#2d5a27] text-sm text-slate-600">
+                                <option value="amizade">🤝 Amizade de Longa Data</option>
+                                <option value="campo">🚜 Resenha do Agro / Barra da Vaca</option>
+                                <option value="escola">⚽ Época da Escola Objetivo</option>
+                                <option value="facul">💻 Informática no IFNMG</option>
+                                <option value="familia">❤️ Família e Amor</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end pb-1">
+                            <p class="text-xs text-slate-400">Postando como: <span id="logged-user" class="font-bold text-[#2d5a27]">Visitante</span></p>
+                        </div>
+                    </div>
+                    <textarea id="memory-input" placeholder="Conte aqui uma história, um momento marcante ou apenas deixe um abraço..." class="w-full p-6 rounded-2xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-[#2d5a27] h-32 mb-4 text-slate-700"></textarea>
+                    <button onclick="addMemory()" class="w-full bg-[#2d5a27] text-white py-4 rounded-2xl font-bold text-lg hover:bg-green-800 transition-all shadow-lg flex items-center justify-center gap-3">
+                        <i class="fas fa-thumbtack"></i> Fixar no Mural
+                    </button>
+                </div>
+
+                <!-- Container do Mural -->
+                <div id="mural-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Lembranças dinâmicas aqui -->
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-16 text-center text-slate-400 border-t bg-white">
+            <div class="flex justify-center gap-8 mb-6 text-xl">
+                <i class="fas fa-tractor hover:text-[#2d5a27] transition cursor-pointer"></i>
+                <i class="fas fa-code hover:text-blue-500 transition cursor-pointer"></i>
+                <i class="fas fa-futbol hover:text-green-500 transition cursor-pointer"></i>
+            </div>
+            <p class="font-medium">Emanuel - O Orgulho da Barra da Vaca</p>
+            <p class="text-xs mt-2 opacity-50 uppercase tracking-tighter">Site Criado por um Grande Amigo</p>
+        </footer>
+    </div>
+
+    <script>
+        let userName = "Anônimo";
+
+        function showRegister() {
+            document.getElementById('auth-options').classList.add('hidden-content');
+            document.getElementById('register-form').classList.remove('hidden-content');
+        }
+
+        function hideRegister() {
+            document.getElementById('auth-options').classList.remove('hidden-content');
+            document.getElementById('register-form').classList.add('hidden-content');
+        }
+
+        function login(name) {
+            userName = name;
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('main-site').style.display = 'block';
+            document.getElementById('logged-user').innerText = userName;
+            loadMemories();
+        }
+
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('user-name').value || "Amigo";
+            login(name);
+        });
+
+        // Banco de Dados Local para as Lembranças
+        let memories = JSON.parse(localStorage.getItem('manel_memories')) || [
+            { 
+                user: "João Pedro", 
+                category: "campo", 
+                text: "Nunca esqueço das resenhas na Barra da Vaca, o Manel sempre foi o sujeito mais rústico da turma!", 
+                date: "01/03/2024" 
+            },
+            { 
+                user: "Maria Clara", 
+                category: "facul", 
+                text: "O melhor parceiro de projeto no IFNMG. O código dele é tão organizado quanto a fazenda dele.", 
+                date: "05/03/2024" 
+            },
+            { 
+                user: "Time Objetivo", 
+                category: "escola", 
+                text: "Aquele gol que você fez no campeonato escolar ficou pra história! Craque dentro e fora de campo.", 
+                date: "10/02/2024" 
+            }
+        ];
+
+        const categoryIcons = {
+            amizade: "🤝",
+            campo: "🚜",
+            escola: "⚽",
+            facul: "💻",
+            familia: "❤️"
+        };
+
+        function loadMemories() {
+            const container = document.getElementById('mural-container');
+            container.innerHTML = '';
+            
+            // Reverter para mostrar as mais novas primeiro
+            memories.slice().reverse().forEach(m => {
+                const div = document.createElement('div');
+                div.className = "bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 memory-card flex flex-col justify-between";
+                
+                div.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="category-tag bg-green-50 text-[#2d5a27]">
+                                ${categoryIcons[m.category]} ${m.category}
+                            </span>
+                            <span class="text-[10px] text-slate-300 font-bold uppercase">${m.date}</span>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">"${m.text}"</p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-slate-50">
+                        <div class="w-8 h-8 bg-[#2d5a27] rounded-full flex items-center justify-center text-white text-xs font-bold">
+                            ${m.user.charAt(0)}
+                        </div>
+                        <span class="text-xs font-bold text-slate-800">${m.user}</span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addMemory() {
+            const input = document.getElementById('memory-input');
+            const category = document.getElementById('memory-category').value;
+            
+            if(!input.value.trim()) return;
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('pt-BR');
+            
+            memories.push({
+                user: userName,
+                category: category,
+                text: input.value,
+                date: dateStr
+            });
+
+            localStorage.setItem('manel_memories', JSON.stringify(memories));
+            input.value = '';
+            
+            // Pequena animação de feedback
+            const btn = document.querySelector('button[onclick="addMemory()"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Fixado!';
+            btn.classList.replace('bg-[#2d5a27]', 'bg-green-600');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-green-600', 'bg-[#2d5a27]');
+                loadMemories();
+                // Scroll suave para a nova lembrança
+                document.getElementById('mural-container').scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
